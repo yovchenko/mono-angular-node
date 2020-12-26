@@ -13,7 +13,7 @@ const heroSchema = new Schema({
   },
   name: String
 }, {
-  collection: 'Heroes'
+  collection: 'heroes'
 })
 
 heroSchema.query.byName = function(name: string | RegExp) {

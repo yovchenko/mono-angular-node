@@ -1,14 +1,29 @@
 import * as mongoose from 'mongoose';
+import { injectable } from "inversify";
+import "reflect-metadata";
 
 const mongoUri = process.env.CONNECTION_STRING;
 
-export function connect() {
-    mongoose.set('debug', true);
-    return mongoose.connect(mongoUri, {useNewUrlParser: true, useUnifiedTopology: true});
+@injectable()
+export default class MongoDb {
+
+    async connect() {
+        try {
+            await mongoose.connect(encodeURI(mongoUri), {
+                useCreateIndex: true,
+                useNewUrlParser: true,
+                useUnifiedTopology: true
+            });
+            console.log('Connected to database!');
+        } catch (err) {
+            console.error("Error connecting to the database: " + err);
+        }
+    }
+
+    connection() {
+        //Get the default connection
+        return mongoose.connection;
+    }
 }
 
-// Get the default connection
- const db = mongoose.connection;
 
-// Bind connection to error event (to get notification of connection errors)
- db.on('error', console.error.bind(console, 'MongoDB connection error:'));

@@ -1,13 +1,22 @@
-import {Hero} from './hero.schema';
-import { connect } from './app.model';
+import { Hero } from './hero.schema';
+import MongoDb from './app.model';
 import { Request, Response } from 'express';
+import { injectable, inject } from "inversify";
+import "reflect-metadata";
+import { SYMBOL } from '@mono-angular-node/mono-libs';
 
+@injectable()
+export default class HeroService {
+private _mongoDb : MongoDb;
 
-
-export class AppService {
-
-constructor() {}
-
+    constructor(
+    @inject(SYMBOL.MongoDb) mongoDb: MongoDb
+    ) 
+    {
+        this._mongoDb = mongoDb;
+        mongoDb.connect();
+    }
+    
     public getHeroes(req: Request, res: Response) {
     const docquery = Hero.find({});
     docquery
