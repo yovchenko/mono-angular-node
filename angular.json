@@ -20,7 +20,11 @@
               "apps/mono-angular-node/src/favicon.ico",
               "apps/mono-angular-node/src/assets"
             ],
-            "styles": ["apps/mono-angular-node/src/styles.scss"],
+            "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "apps/mono-angular-node/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -85,7 +89,11 @@
           "outputs": ["coverage/apps/mono-angular-node"],
           "options": {
             "jestConfig": "apps/mono-angular-node/jest.config.js",
-            "passWithNoTests": true
+            "passWithNoTests": true,
+            "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"
+            ]
           }
         }
       }
@@ -162,6 +170,27 @@
           "outputs": ["coverage/apps/api"],
           "options": {
             "jestConfig": "apps/api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "mono-libs": {
+      "root": "libs/mono-libs",
+      "sourceRoot": "libs/mono-libs/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/mono-libs/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/mono-libs"],
+          "options": {
+            "jestConfig": "libs/mono-libs/jest.config.js",
             "passWithNoTests": true
           }
         }

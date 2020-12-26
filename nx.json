@@ -32,6 +32,9 @@
     },
     "api": {
       "tags": []
+    },
+    "mono-libs": {
+      "tags": []
     }
   }
 }
