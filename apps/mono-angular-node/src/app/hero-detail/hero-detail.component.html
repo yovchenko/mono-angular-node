@@ -1,0 +1,12 @@
+<div *ngIf="hero" class="container">
+    <h2 class="font-effect-shadow-multiple">{{ hero.name | uppercase }} Details</h2>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text" (click)="focusInput()">
+          <span>{{hero.id}}</span>
+        </div>
+      </div>
+      <input class="col-12 form-control" [(ngModel)]="hero.name" [focus]="focusEventEmitter" placeholder="name" />
+    </div>
+    <button type="button" class="btn btn-dark" (click)="save()">go back</button>
+  </div>

@@ -1,0 +1,26 @@
+{
+  "name": "Tour-Of-Heroes",
+  "short_name": "TOH",
+  "description": "Angular app",
+  "icons": [{
+    "src": "assets/icons/Angular_64.png",
+    "sizes": "64x64",
+    "type": "image/png"
+  },{
+    "src": "assets/icons/Angular_128.png",
+    "sizes": "128x128",
+    "type": "image/png"
+  },{
+    "src": "assets/icons/Angular_256.png",
+    "sizes": "256x256",
+    "type": "image/png"
+  },{
+    "src": "assets/icons/Angular_512.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }],
+  "start_url": "index.html",
+  "background_color": "#e6003a",
+  "theme_color": "#e6003a",
+  "display": "standalone"
+}

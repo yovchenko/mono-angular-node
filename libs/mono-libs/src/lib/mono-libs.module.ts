@@ -1,6 +1,6 @@
 
 export type THero = {
-  id: string;
+  id: number;
   name: string;
 }
 

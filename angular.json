@@ -18,7 +18,8 @@
             "aot": true,
             "assets": [
               "apps/mono-angular-node/src/favicon.ico",
-              "apps/mono-angular-node/src/assets"
+              "apps/mono-angular-node/src/assets",
+              "apps/mono-angular-node/src/manifest.webmanifest"
             ],
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -53,7 +54,9 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "apps/mono-angular-node/ngsw-config.json"
             }
           }
         },

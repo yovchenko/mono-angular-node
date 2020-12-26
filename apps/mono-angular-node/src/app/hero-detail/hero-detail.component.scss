@@ -1,0 +1,83 @@
+.container {
+    text-align: right;
+  }
+  
+  h2 {
+    color: #e6003a;
+    font-size: 2.827em;
+    line-height: 1;
+    text-align: center;
+    font-family: 'Luckiest Guy', cursive;
+    border-radius: .25rem;
+    margin: 0px 0.275em 0.275em 0.275em;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  
+  .input-group {
+    height: 36.59px;
+  }
+  
+  .input-group-prepend {
+    z-index: 2;
+  }
+  
+  .input-group-text span {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding-top: 0.1375em;
+    font-size: 1.5rem;
+  }
+  
+  .input-group-text {
+    width: 69.03px;
+    position: relative;
+    border: 1px solid #343a40;
+    background-color: #343a40;
+    cursor: pointer;
+    color: #fff;
+    font-family: 'Luckiest Guy', cursive;
+  }
+  
+  .input-group-text:hover {
+    border: 1px solid #23272b;
+    background-color: #23272b;
+  }
+  
+  .form-control {
+    border: 1px solid #333;
+    z-index: 2;
+  }
+  
+  .form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, .5);
+  }
+  
+  button {
+    margin-left: auto;
+    height: 36.59px;
+    padding: 0.1375em 0.275em 0px 0.275em;
+    margin: 15px 0px;
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 1.5rem;
+    outline: 0;
+  }
+  
+  button:-moz-focusring {
+    outline: transparent;
+  }
+  
+  _:-ms-lang(x),
+  button {
+    padding: 0 0.275em;
+    line-height: 0.9;
+  }
+  
+  _:-ms-lang(x),
+  .input-group-text span {
+    line-height: 1.2;
+  }

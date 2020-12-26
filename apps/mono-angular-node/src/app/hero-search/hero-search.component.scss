@@ -1,0 +1,53 @@
+svg {
+    width: 25px;
+    height: 25px;
+    margin: 0 auto;
+    z-index: 2;
+  }
+  
+  .input-group {
+    max-height: 36.59px;
+  }
+  
+  .input-group-text {
+    width: 69.03px;
+    border: 1px solid #343a40;
+    background-color: #343a40;
+    cursor: pointer;
+  }
+  
+  .input-group-prepend {
+    z-index: 2;
+  }
+  
+  .input-group-text:hover {
+    border: 1px solid #23272b;
+    background-color: #23272b;
+  }
+  
+  .input-group-text svg {
+    fill: white;
+  }
+  
+  .list-group-item.list-group-item-action {
+    cursor: pointer;
+    overflow-x: auto;
+  }
+  
+  .list-group-item.list-group-item-action:-moz-focusring {
+    outline: transparent;
+  }
+  
+  .form-control {
+    border: 1px solid #333;
+    z-index: 2;
+  }
+  
+  .list-group.search-result {
+    padding-bottom: 1rem;
+  }
+  
+  .form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, .5);
+  }
+  

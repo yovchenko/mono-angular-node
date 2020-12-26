@@ -7,13 +7,10 @@ import { SYMBOL } from '@mono-angular-node/mono-libs';
 
 @injectable()
 export default class HeroService {
-private _mongoDb : MongoDb;
-
     constructor(
     @inject(SYMBOL.MongoDb) mongoDb: MongoDb
     ) 
     {
-        this._mongoDb = mongoDb;
         mongoDb.connect();
     }
     
