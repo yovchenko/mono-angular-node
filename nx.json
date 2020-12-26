@@ -29,6 +29,9 @@
     "mono-angular-node-e2e": {
       "tags": [],
       "implicitDependencies": ["mono-angular-node"]
+    },
+    "api": {
+      "tags": []
     }
   }
 }
