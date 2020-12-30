@@ -1,6 +1,6 @@
 
 export type THero = {
-  id: number;
+  hero_id: number;
   name: string;
 }
 

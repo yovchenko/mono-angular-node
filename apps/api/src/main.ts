@@ -1,6 +1,7 @@
 /**
  * Required External Modules
  */
+
 import * as express from 'express';
 import dotenv from 'dotenv';
 import * as cors from "cors";
@@ -34,14 +35,17 @@ app.use(express.urlencoded({ extended: false }));
  * Server Activation
  */
 
-app.use(express.static(path.join(__dirname, '..', 'mono-angular-node')));
 app.use("/api", router);
+
+/*
+app.use(express.static(path.join(__dirname, '..', 'mono-angular-node')));
 
 app.get("*", (req, res) => {
   res.sendFile('dist/apps/mono-angular-node/index.html', {
     root
   });
 });
+*/
 
 const port = process.env.PORT || 4200;
 

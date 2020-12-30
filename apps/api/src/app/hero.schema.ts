@@ -1,12 +1,10 @@
 import { model, Schema, Model, Document } from 'mongoose';
+import { THero } from '@mono-angular-node/mono-libs';
 
-interface IHero extends Document {
-    id: string;
-    name: string;
-}
+interface IHero extends THero, Document {}
 
 const heroSchema = new Schema({
-  id: {
+  hero_id: {
     type: Number,
     required: true,
     unique: true
@@ -21,4 +19,5 @@ heroSchema.query.byName = function(name: string | RegExp) {
 };
 
 export const Hero: Model<IHero> = model('Hero', heroSchema);
+
 

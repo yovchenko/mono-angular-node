@@ -2,47 +2,46 @@ import { Hero } from './hero.schema';
 import MongoDb from './app.model';
 import { Request, Response } from 'express';
 import { injectable, inject } from "inversify";
+import { SYMBOL, THero } from '@mono-angular-node/mono-libs';
 import "reflect-metadata";
-import { SYMBOL } from '@mono-angular-node/mono-libs';
 
 @injectable()
 export default class HeroService {
     constructor(
-    @inject(SYMBOL.MongoDb) mongoDb: MongoDb
+    @inject(SYMBOL.MongoDb) _mongoDb: MongoDb,   
     ) 
     {
-        mongoDb.connect();
+        _mongoDb.connect();
     }
     
-    public getHeroes(req: Request, res: Response) {
+    public async getHeroes() {   
     const docquery = Hero.find({});
-    docquery
+    return docquery
         .exec()
         .then(heroes => {
-        res.status(200).json(heroes);
+            return heroes;
         })
         .catch(error => {
-        res.status(500).send(error);
-        return;
+            return new Error("There was an error in handling the request " + error);
         });
     }
 
     public getHero(req: Request, res: Response) {
-    const originalHero = {
-        id: parseInt(req.params.id, 10),
+    const originalHero: THero = {
+        hero_id: parseInt(req.params.hero_id, 10),
         name: req.body.name
     };
     const docquery = Hero.findOne({
-        id: originalHero.id
+        hero_id: originalHero.hero_id
     });
     docquery
         .exec()
         .then(hero => {
-        res.status(200).json(hero);
+            res.status(200).json(hero);
         })
         .catch(error => {
-        res.status(500).send(error);
-        return;
+            res.status(500).send(error);
+            return;
         });
     }
 
@@ -56,17 +55,17 @@ export default class HeroService {
     docquery
         .exec()
         .then(heroes => {
-        res.status(200).json(heroes);
+            res.status(200).json(heroes);
         })
         .catch(error => {
-        res.status(500).send(error);
+            res.status(500).send(error);
         return;
         });
     }
 
     public postHero(req: Request, res: Response) {
-    const originalHero = {
-        id: req.body.id,
+    const originalHero: THero = {
+        hero_id: req.body.hero_id,
         name: req.body.name
     };
     const hero = new Hero(originalHero);
@@ -85,12 +84,12 @@ export default class HeroService {
     }
 
     public putHero(req: Request, res: Response) {
-    const originalHero = {
-        id: parseInt(req.params.id, 10),
+    const originalHero: THero = {
+        hero_id: parseInt(req.params.hero_id, 10),
         name: req.body.name
     };
     Hero.findOne({
-        id: originalHero.id
+        hero_id: originalHero.hero_id
     }, (error: Error, hero) => {
         if (this.checkServerError(res, error)) return;
         if (!this.checkFound(res, hero)) return;
@@ -105,9 +104,9 @@ export default class HeroService {
     }
 
     public deleteHero(req: Request, res: Response) {
-    const id = parseInt(req.params.id, 10);
+    const hero_id = parseInt(req.params.hero_id, 10);
     Hero.findOneAndRemove({
-        id: id
+        hero_id: hero_id
         })
         .then(hero => {
         if (!this.checkFound(res, hero)) return;

@@ -8,9 +8,17 @@ const heroService = appContainer.get<HeroService>(SYMBOL.HeroService);
 
 const router = express.Router();
 
-router.get('/heroes', (req: Request, res: Response) => {
-  if(typeof req.query.name !== 'string')heroService.getHeroes(req, res);
+router.get('/heroes', async (req: Request, res: Response) => {
+  if(typeof req.query.name !== 'string') {
+    try{
+      const result = await heroService.getHeroes();
+      res.status(200).json(result);
+    } catch(error) {
+      res.status(500).send(error);
+    }
+  }
   else heroService.searchHeroes(req, res, req.query.name);
+
 });
 
 router.get('/hero/:id', (req: Request, res: Response) => {
