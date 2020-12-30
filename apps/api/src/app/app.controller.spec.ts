@@ -1,3 +1,5 @@
-describe("Controler test", () => {
-    expect(1).toBe(1);
+describe("Controller test", () => {
+    test('1 = 1', () => {
+        expect(1).toBe(1);
+    });
 });

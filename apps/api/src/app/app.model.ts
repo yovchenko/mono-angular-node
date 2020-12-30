@@ -6,16 +6,16 @@ const mongoUri = process.env.CONNECTION_STRING;
 
 @injectable()
 export default class MongoDb {
-    async connect() {
+    async connect(): Promise<boolean> {
         try {
             await mongoose.connect(encodeURI(mongoUri), {
                 useCreateIndex: true,
                 useNewUrlParser: true,
                 useUnifiedTopology: true
             });
-            return "connected";
+            return true;
         } catch (err) {
-            return new Error("Error connecting to the database: " + err);
+            throw new Error("Error connecting to the database: " + err);
         }
     }
 

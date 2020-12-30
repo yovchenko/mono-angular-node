@@ -7,13 +7,24 @@ import "reflect-metadata";
 
 @injectable()
 export default class HeroService {
+    private _connection = false;
+
     constructor(
-    @inject(SYMBOL.MongoDb) _mongoDb: MongoDb,   
+    @inject(SYMBOL.MongoDb) mongoDb: MongoDb,   
     ) 
-    {
-        _mongoDb.connect();
+    {  
+        try{
+            mongoDb.connect()
+            this._connection = true;
+        }catch(error) {
+            console.error(error);
+        }
     }
-    
+
+    get connection() {
+        return this._connection;
+    }
+
     public async getHeroes() {   
     const docquery = Hero.find({});
     return docquery
@@ -123,7 +134,6 @@ export default class HeroService {
         res.status(404).send('Hero not found.');
         return;
     }
-    return hero;
+        return hero;
     }
-
 }
