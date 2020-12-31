@@ -11,7 +11,8 @@ export default class MongoDb {
             await mongoose.connect(encodeURI(mongoUri), {
                 useCreateIndex: true,
                 useNewUrlParser: true,
-                useUnifiedTopology: true
+                useUnifiedTopology: true,
+                useFindAndModify: false
             });
             return true;
         } catch (err) {

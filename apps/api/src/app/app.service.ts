@@ -1,6 +1,5 @@
 import { Hero } from './hero.schema';
 import MongoDb from './app.model';
-import { Request, Response } from 'express';
 import { injectable, inject } from "inversify";
 import { SYMBOL, THero } from '@mono-angular-node/mono-libs';
 import "reflect-metadata";
@@ -33,107 +32,97 @@ export default class HeroService {
             return heroes;
         })
         .catch(error => {
-            return new Error("There was an error in handling the request " + error);
+            throw new Error("There was an error in handling the GET request " + error);
         });
     }
 
-    public getHero(req: Request, res: Response) {
+    public async getHero(id: string, name: string) {
     const originalHero: THero = {
-        hero_id: parseInt(req.params.hero_id, 10),
-        name: req.body.name
+        hero_id: parseInt(id, 10),
+        name: name
     };
     const docquery = Hero.findOne({
         hero_id: originalHero.hero_id
     });
-    docquery
+    return docquery
         .exec()
         .then(hero => {
-            res.status(200).json(hero);
+            return hero;
         })
         .catch(error => {
-            res.status(500).send(error);
-            return;
+            throw new Error("There was an error in handling the GET request " + error);
         });
     }
 
-    public searchHeroes(req: Request, res: Response, urlParam) {
+    public async searchHeroes(urlParam: string) {
     const docquery = Hero.find({
         'name': {
         $regex: '^' + urlParam,
         $options: 'i'
         }
     });
-    docquery
+    return docquery
         .exec()
         .then(heroes => {
-            res.status(200).json(heroes);
+            return heroes;
         })
         .catch(error => {
-            res.status(500).send(error);
-        return;
+            throw new Error("There was an error in handling the GET request " + error);
         });
     }
 
-    public postHero(req: Request, res: Response) {
-    const originalHero: THero = {
-        hero_id: req.body.hero_id,
-        name: req.body.name
+    public async postHero(id: string, name: string) {
+    const originalHero = {
+        hero_id: parseInt(id, 10),
+        name: name
     };
     const hero = new Hero(originalHero);
-    hero.save(error => {
-        if (this.checkServerError(res, error)) return;
-        res.status(201).json(hero);
-        console.log('Hero created successfully!');
-    });
+        try {
+            await hero.save(); 
+            return hero;
+        }catch(error) {
+            throw new Error("There was an error in handling the POST request " + error);
+        }
     }
 
-    private checkServerError(res, error) {
-    if (error) {
-        res.status(500).send(error);
-        return error;
-    }
-    }
-
-    public putHero(req: Request, res: Response) {
+    public async putHero(id: string, name: string) {
     const originalHero: THero = {
-        hero_id: parseInt(req.params.hero_id, 10),
-        name: req.body.name
+        hero_id: parseInt(id, 10),
+        name: name
     };
-    Hero.findOne({
+    const docquery = Hero.findOne({
         hero_id: originalHero.hero_id
-    }, (error: Error, hero) => {
-        if (this.checkServerError(res, error)) return;
-        if (!this.checkFound(res, hero)) return;
-
-        hero.name = originalHero.name;
-        hero.save((error: Error) => {
-        if (this.checkServerError(res, error)) return;
-        res.status(200).json(hero);
-        console.log('Hero updated successfully!');
-        });
-    });
-    }
-
-    public deleteHero(req: Request, res: Response) {
-    const hero_id = parseInt(req.params.hero_id, 10);
-    Hero.findOneAndRemove({
-        hero_id: hero_id
-        })
-        .then(hero => {
-        if (!this.checkFound(res, hero)) return;
-        res.status(200).json(hero);
-        console.log('Hero deleted successfully!');
+    }); 
+    return docquery
+        .exec()
+        .then(async hero => {
+            if(!hero) return null;
+            hero.name = originalHero.name;
+            try {
+                await hero.save(); 
+                return hero;
+            }catch(error) {
+                throw new Error("The doc cannot be added to the database " + error);
+            }
         })
         .catch(error => {
-        if (this.checkServerError(res, error)) return;
+            throw new Error("There was an error in handling the PUT request " + error);
         });
     }
 
-    private checkFound(res: Response, hero) {
-    if (!hero) {
-        res.status(404).send('Hero not found.');
-        return;
-    }
-        return hero;
+    public async deleteHero(id: string) {
+    const hero_id = parseInt(id, 10);
+    const docquery = Hero.findOneAndRemove({
+        hero_id: hero_id
+    });
+    return docquery
+        .exec()    
+        .then(hero => {
+            if(!hero) return null;
+            return hero;
+        })
+        .catch(error => {
+            throw new Error("There was an error in handling the DELETE request " + error);
+        });
     }
 }

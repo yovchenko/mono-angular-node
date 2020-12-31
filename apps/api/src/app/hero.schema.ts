@@ -1,7 +1,7 @@
 import { model, Schema, Model, Document } from 'mongoose';
 import { THero } from '@mono-angular-node/mono-libs';
 
-interface IHero extends THero, Document {}
+export interface IHero extends THero, Document {}
 
 const heroSchema = new Schema({
   hero_id: {

@@ -17,24 +17,59 @@ router.get('/heroes', async (req: Request, res: Response) => {
       res.status(500).send(error);
     }
   }
-  else heroService.searchHeroes(req, res, req.query.name);
+  else {
+    try{
+      const result = await heroService
+      .searchHeroes(req.query.name);
+      res.status(200).json(result);
+    } catch(error) {
+      res.status(500).send(error);
+    }
+  }
 
 });
 
-router.get('/hero/:id', (req: Request, res: Response) => {
-  heroService.getHero(req, res);
+router.get('/hero/:id', async (req: Request, res: Response) => {
+  try {
+    const result = await heroService
+    .getHero(req.params.hero_id, req.body.name);
+    res.status(200).json(result);
+  }catch(error) {
+    res.status(500).send(error);
+  }
 });
 
-router.post('/hero', (req: Request, res: Response) => {
-  heroService.postHero(req, res);
+router.post('/hero', async (req: Request, res: Response) => {
+  try {
+    const result = await heroService
+    .postHero(req.params.hero_id, req.body.name);
+    res.status(201).json(result);
+  }catch(error) {
+    res.status(500).send(error);
+  }
 });
 
-router.put('/hero/:id', (req: Request, res: Response) => {
-  heroService.putHero(req, res);
+router.put('/hero/:id', async (req: Request, res: Response) => {
+  try{
+    const result = await heroService
+    .putHero(req.params.hero_id, req.body.name);
+    if(result) res.status(200).json(result);
+    else res.status(404).send('Document not found!');
+  }catch(error){
+    res.status(500).send(error);
+  }
+
 });
 
-router.delete('/hero/:id', (req: Request, res: Response) => {
-  heroService.deleteHero(req, res);
+router.delete('/hero/:id', async (req: Request, res: Response) => {
+  try {
+    const result = await heroService
+    .deleteHero(req.params.hero_id);
+    if(result) res.status(200).json(result);
+    else res.status(404).send('Document not found!');
+  }catch(error) {
+    res.status(500).send(error);
+  }
 });
 
 export { router };
