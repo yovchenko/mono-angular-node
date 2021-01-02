@@ -52,8 +52,8 @@ import { BrowserAnimationsModule
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-     environment.production ? ServiceWorkerModule.register('ngsw-worker.js') : [],
-     BrowserAnimationsModule
+    environment.production ? ServiceWorkerModule.register('ngsw-worker.js') : [],
+    BrowserAnimationsModule
   ],
   declarations: [
     AppComponent,

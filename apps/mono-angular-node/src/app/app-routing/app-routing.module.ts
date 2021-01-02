@@ -25,7 +25,7 @@ const routes: Routes = [{
     component: DashboardComponent
   },
   {
-    path: 'detail/:id',
+    path: 'detail/:hero_id',
     component: HeroDetailComponent
   },
   {

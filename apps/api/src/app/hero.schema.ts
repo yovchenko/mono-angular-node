@@ -9,7 +9,10 @@ const heroSchema = new Schema({
     required: true,
     unique: true
   },
-  name: String
+  name: {
+    type: String,
+    unique: true
+  }
 }, {
   collection: 'heroes'
 })

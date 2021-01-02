@@ -14,11 +14,13 @@ import {
 })
 export class FocusDirective {
   @Input('focus') focusEvent: EventEmitter < boolean > ;
-  constructor(@Inject(ElementRef) private element: ElementRef, private renderer: Renderer2) {}
+  constructor(@Inject(ElementRef) private element: ElementRef, 
+  private renderer: Renderer2) {}
 
   ngOnInit(): void   {
     this.focusEvent.subscribe(() => {
-      this.renderer.selectRootElement(this.element.nativeElement).scrollIntoView()
+      this.renderer.selectRootElement(this.element.nativeElement)
+      .scrollIntoView({ behavior: 'smooth' })
     });
   }
 }

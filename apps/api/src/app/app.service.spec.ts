@@ -4,12 +4,13 @@ import { SYMBOL } from '@mono-angular-node/mono-libs';
 
 describe("Model test via Moongoose", () => {
     let heroService: HeroService;
+    const id = 1;
     beforeAll(() => {
       heroService = appContainer.get<HeroService>(SYMBOL.HeroService);
     });
 
     afterAll(() => {
-        heroService.deleteHero("1");
+        heroService.deleteHero(String(id));
     });
 
     test('Check the connection to db', () => {
@@ -24,23 +25,23 @@ describe("Model test via Moongoose", () => {
     
     test('Create a new document', async () => {
       await expect(
-        heroService.postHero("1", "Superman")
+        heroService.postHero("Superman")
       ).resolves.toEqual(
-          expect.objectContaining({ hero_id: 1 })
+          expect.objectContaining({ hero_id: id })
       );
     }); 
 
-    test('Create a new document with the same id', async () => {
+    test('Create a new document with the same name', async () => {
       await expect(
-        heroService.postHero("1", "Superman")
+        heroService.postHero("Superman")
       ).rejects.toThrow();
     }); 
 
     test('Update the document created before', async () => {
       await expect(
-        heroService.putHero("1", "Batman")
+        heroService.putHero(String(id), "Batman")
       ).resolves.toEqual(
-        expect.objectContaining({ hero_id: 1, name: "Batman" })
+        expect.objectContaining({ hero_id: id, name: "Batman" })
       );
     }); 
 });

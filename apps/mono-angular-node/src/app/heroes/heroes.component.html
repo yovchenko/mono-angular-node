@@ -9,8 +9,8 @@
     <input class="col-12 form-control" #heroName [focus]="focusEventEmitter" placeholder="Create a Hero" />
   </div>
   <ul class="heroes list-group search-result">
-    <li class="list-group-item list-group-item-action" *ngFor="let hero of heroes" routerLink="/detail/{{hero.id}}">
-      <span class="badge">{{hero.id}}</span>
+    <li class="list-group-item list-group-item-action" *ngFor="let hero of heroes" routerLink="/detail/{{hero.hero_id}}">
+      <span class="badge">{{hero.hero_id}}</span>
       <span [ngClass]="(isYourHero(hero.name) === 'danger' || isYourHero(hero.name) === 'success') ? ((isYourHero(hero.name) === 'danger') ? 'list-group-item-danger': 'list-group-item-success'): ''">{{hero.name}}</span>
       <button class="delete btn btn-light" title="delete hero" (click)="delete(hero)">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="774.266px" height="774.266px"

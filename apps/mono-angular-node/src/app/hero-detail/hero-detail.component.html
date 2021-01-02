@@ -3,7 +3,7 @@
     <div class="input-group">
       <div class="input-group-prepend">
         <div class="input-group-text" (click)="focusInput()">
-          <span>{{hero.id}}</span>
+          <span>{{hero.hero_id}}</span>
         </div>
       </div>
       <input class="col-12 form-control" [(ngModel)]="hero.name" [focus]="focusEventEmitter" placeholder="name" />

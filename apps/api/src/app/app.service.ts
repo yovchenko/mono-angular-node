@@ -1,4 +1,4 @@
-import { Hero } from './hero.schema';
+import { Hero, IHero } from './hero.schema';
 import MongoDb from './app.model';
 import { injectable, inject } from "inversify";
 import { SYMBOL, THero } from '@mono-angular-node/mono-libs';
@@ -71,12 +71,18 @@ export default class HeroService {
         });
     }
 
-    public async postHero(id: string, name: string) {
-    const originalHero = {
-        hero_id: parseInt(id, 10),
+    public async postHero(name: string) {
+    const newHero = {
+        hero_id: 1,
         name: name
     };
-    const hero = new Hero(originalHero);
+    try{
+        const heroWithMaxId = await Hero.findOne({}).sort({"hero_id": -1});
+        if (heroWithMaxId) newHero.hero_id = ++heroWithMaxId.hero_id;
+    }catch(error) {
+        throw new Error("There was an error while searching for the max value " + error);
+    }
+    const hero = new Hero(newHero);
         try {
             await hero.save(); 
             return hero;

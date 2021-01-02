@@ -37,8 +37,8 @@ export class HeroDetailComponent implements OnInit {
     this.getHero();
   }
   getHero(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.heroService.getHero(id)
+    const hero_id = +this.route.snapshot.paramMap.get('hero_id');
+    this.heroService.getHero(hero_id)
       .subscribe(hero => this.hero = hero);
   }
   focusInput() {

@@ -29,7 +29,7 @@ const httpOptions = {
 })
 export class HeroService {
 
-  private heroesUrl = 'http://localhost:4200/api';
+  private heroesUrl = 'http://localhost:3333/api';
   constructor(
     private http: HttpClient,
     private messageService: MessageService) {}
@@ -44,37 +44,41 @@ export class HeroService {
   }
 
   /** GET hero by id. Will 404 if id not found */
-  getHero(id: number): Observable < THero > {
-    const url = `${this.heroesUrl}/hero/${id}`;
-    return this.http.get < THero > (url).pipe(
-      tap(() => this.log(`fetched hero id=${id}`)),
-      catchError(this.handleError < THero > (`getHero id=${id}`))
-    );
+  getHero(hero_id: number): Observable < THero > {
+    const url = `${this.heroesUrl}/hero/${hero_id}`;
+    return this.http.get < THero > (url)
+      .pipe(
+        tap(() => this.log(`fetched hero id=${hero_id}`)),
+        catchError(this.handleError < THero> ('getHero'))
+      );
   }
 
   /** PUT: update the hero on the server */
-  updateHero(hero: THero): Observable < any > {
-    const url = `${this.heroesUrl}/hero/${hero.id}`;
-    return this.http.put(url, hero, httpOptions).pipe(
-      tap(() => this.log(`updated hero id=${hero.id}`)),
-      catchError(this.handleError < any > ('updateHero'))
-    );
+  updateHero(hero: THero): Observable < THero > {
+    const url = `${this.heroesUrl}/hero/${hero.hero_id}`;
+    return this.http.put <THero> (url, hero, httpOptions)
+      .pipe(
+        tap(() => this.log(`updated hero id=${hero.hero_id}`)),
+        catchError(this.handleError < THero > ('updateHero'))
+      );
   }
   /** POST: add a new hero to the server */
   addHero(hero: THero): Observable < THero > {
-    return this.http.post < THero > (`${this.heroesUrl}/hero`, hero, httpOptions).pipe(
-      tap((hero: THero) => this.log(`added hero w/ id=${hero.id}`)),
-      catchError(this.handleError < THero > ('addHero'))
-    );
+    return this.http.post < THero > (`${this.heroesUrl}/hero`, hero, httpOptions)
+      .pipe(
+        tap((hero: THero) => this.log(`added hero w/ id=${hero.hero_id}`)),
+        catchError(this.handleError < THero > ('addHero'))
+      );
   }
   /** DELETE: delete the hero from the server */
   deleteHero(hero: THero | number): Observable < THero > {
-    const id = typeof hero === 'number' ? hero : hero.id;
-    const url = `${this.heroesUrl}/hero/${id}`;
-    return this.http.delete < THero > (url, httpOptions).pipe(
-      tap(() => this.log(`deleted hero id=${id}`)),
-      catchError(this.handleError < THero > ('deleteHero'))
-    );
+    const hero_id = typeof hero === 'number' ? hero : hero.hero_id;
+    const url = `${this.heroesUrl}/hero/${hero_id}`;
+    return this.http.delete < THero > (url, httpOptions)
+      .pipe(
+        tap(() => this.log(`deleted hero id=${hero_id}`)),
+        catchError(this.handleError < THero > ('deleteHero'))
+      );
   }
   /* GET heroes whose name contains search term */
   searchHeroes(term: string): Observable < THero[] > {
@@ -82,10 +86,11 @@ export class HeroService {
       // if not search term, return empty hero array.
       return of([]);
     }
-    return this.http.get < THero[] > (`${this.heroesUrl}/heroes/?name=${term}`).pipe(
-      tap(() => this.log(`found heroes matching "${term}"`)),
-      catchError(this.handleError < THero[] > ('searchHeroes', []))
-    );
+    return this.http.get < THero[] > (`${this.heroesUrl}/heroes/?name=${term}`)
+      .pipe(
+        tap(() => this.log(`found heroes matching "${term}"`)),
+        catchError(this.handleError < THero[] > ('searchHeroes', []))
+      );
   }
   /**
    * Handle Http operation that failed.
