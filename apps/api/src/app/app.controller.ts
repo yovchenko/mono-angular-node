@@ -41,8 +41,10 @@ router.get('/hero/:id', async (req: Request, res: Response) => {
 
 router.post('/hero', async (req: Request, res: Response) => {
   try {
+    console.log("req.body.hero_id = " + req.body.hero_id);
+    console.log("req.body.name = " + req.body.name);
     const result = await heroService
-    .postHero(req.params.hero_id, req.body.name);
+    .postHero(req.body.hero_id, req.body.name);
     res.status(201).json(result);
   }catch(error) {
     res.status(500).send(error);

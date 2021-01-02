@@ -6,9 +6,10 @@ describe("Model test via Moongoose", () => {
     let heroService: HeroService;
     beforeAll(() => {
       heroService = appContainer.get<HeroService>(SYMBOL.HeroService);
-      if(heroService.connection) {
+    });
+
+    afterAll(() => {
         heroService.deleteHero("1");
-      }
     });
 
     test('Check the connection to db', () => {
