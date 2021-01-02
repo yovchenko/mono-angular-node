@@ -29,7 +29,7 @@ router.get('/heroes', async (req: Request, res: Response) => {
 
 });
 
-router.get('/hero/:id', async (req: Request, res: Response) => {
+router.get('/hero/:hero_id', async (req: Request, res: Response) => {
   try {
     const result = await heroService
     .getHero(req.params.hero_id, req.body.name);
@@ -41,8 +41,6 @@ router.get('/hero/:id', async (req: Request, res: Response) => {
 
 router.post('/hero', async (req: Request, res: Response) => {
   try {
-    console.log("req.body.hero_id = " + req.body.hero_id);
-    console.log("req.body.name = " + req.body.name);
     const result = await heroService
     .postHero(req.body.hero_id, req.body.name);
     res.status(201).json(result);
@@ -51,7 +49,7 @@ router.post('/hero', async (req: Request, res: Response) => {
   }
 });
 
-router.put('/hero/:id', async (req: Request, res: Response) => {
+router.put('/hero/:hero_id', async (req: Request, res: Response) => {
   try{
     const result = await heroService
     .putHero(req.params.hero_id, req.body.name);
@@ -63,7 +61,7 @@ router.put('/hero/:id', async (req: Request, res: Response) => {
 
 });
 
-router.delete('/hero/:id', async (req: Request, res: Response) => {
+router.delete('/hero/:hero_id', async (req: Request, res: Response) => {
   try {
     const result = await heroService
     .deleteHero(req.params.hero_id);
