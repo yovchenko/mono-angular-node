@@ -49,14 +49,14 @@
 
 nav {
   display: flex;
-  margin: -15px 0px 15px 0px;
+  margin: 10px 0px 15px 0px;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 button {
-  height: 36.59px;
-  padding: 0.1375em 0.275em 0px 0.275em;
-  margin: 0px 15px;
+  height: 40px;
+  margin: 10px 10px;
   font-family: 'Luckiest Guy', cursive;
   font-size: 1.5rem;
 }
