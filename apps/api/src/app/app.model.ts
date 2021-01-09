@@ -16,7 +16,7 @@ export default class MongoDb {
             });
             return true;
         } catch (err) {
-            throw new Error("Error connecting to the database: " + err);
+            console.error("Error connecting to the database: " + err);
         }
     }
 

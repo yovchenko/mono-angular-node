@@ -1,10 +1,12 @@
 import {
   Component,
-  OnInit
+  OnInit,
+  OnDestroy
 } from '@angular/core';
 import {
   THero
 } from '@mono-angular-node/mono-libs';
+import { Subscription } from 'rxjs';
 import {
   HeroService
 } from '../hero.service';
@@ -15,9 +17,10 @@ import {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   heroes: THero[] = [];
-
+  subscription: Subscription;
+  
   constructor(private heroService: HeroService) {}
 
   ngOnInit() {
@@ -25,7 +28,11 @@ export class DashboardComponent implements OnInit {
   }
 
   getHeroes(): void {
-    this.heroService.getHeroes()
+    this.subscription = this.heroService.getHeroes()
       .subscribe(heroes => this.heroes = heroes.slice(0, 5));
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe(); 
   }
 }

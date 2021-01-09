@@ -23,4 +23,3 @@ heroSchema.query.byName = function(name: string | RegExp) {
 
 export const Hero: Model<IHero> = model('Hero', heroSchema);
 
-
