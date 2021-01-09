@@ -23,7 +23,7 @@ export class HeroesComponent implements OnInit, OnDestroy {
   heroes: THero[];
   addHero: string;
   heroState: string;
-  subscription: Subscription;
+  subscription: Subscription[];
 
   constructor(private heroService: HeroService) {}
 
@@ -31,10 +31,10 @@ export class HeroesComponent implements OnInit, OnDestroy {
     this.getHeroes();
   }
   getHeroes(): void {
-    this.subscription = this.heroService.getHeroes()
+    this.subscription.push(this.heroService.getHeroes()
       .subscribe(heroes => {
         this.heroes = heroes;
-      });
+      }));
   }
   isYourHero(name: string): string {
     if (name === this.addHero) {
@@ -45,17 +45,17 @@ export class HeroesComponent implements OnInit, OnDestroy {
   add(name: string): void {
     name = name.trim();
     if (!name) { return; }
-    this.subscription = this.heroService.addHero({ name } as THero)
+    this.subscription.push(this.heroService.addHero({ name } as THero)
       .subscribe(hero => {
         this.heroes.push(hero);
-      });
+      }));
   }
   
   delete(hero: THero): void {
     this.heroes = this.heroes.filter(h => h !== hero);
-    this.subscription = this.heroService.deleteHero(hero).subscribe();
+    this.subscription.push(this.heroService.deleteHero(hero).subscribe());
   }
   ngOnDestroy() {
-    this.subscription.unsubscribe(); 
+    this.subscription.forEach(sub => sub.unsubscribe());
   }
 }

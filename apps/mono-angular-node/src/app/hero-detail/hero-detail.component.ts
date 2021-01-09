@@ -27,7 +27,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./hero-detail.component.scss']
 })
 export class HeroDetailComponent implements OnInit, OnDestroy {
-  subscription: Subscription;
+  subscription: Subscription[];
   @Input() hero: THero;
   public focusEventEmitter = new EventEmitter<boolean>();
   constructor(
@@ -41,21 +41,21 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
   }
   getHero(): void {
     const hero_id = +this.route.snapshot.paramMap.get('hero_id');
-    this.subscription = this.heroService.getHero(hero_id)
-      .subscribe(hero => this.hero = hero);
+    this.subscription.push(this.heroService.getHero(hero_id)
+      .subscribe(hero => this.hero = hero));
   }
   focusInput() {
     this.focusEventEmitter.emit(true);
   }
   save(): void {
-    this.subscription = this.heroService.updateHero(this.hero)
-      .subscribe(() => this.goBack());
+    this.subscription.push(this.heroService.updateHero(this.hero)
+      .subscribe(() => this.goBack()));
   }
   goBack(): void {
     this.location.back();
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe(); 
+    this.subscription.forEach(sub => sub.unsubscribe());
   }
 }
