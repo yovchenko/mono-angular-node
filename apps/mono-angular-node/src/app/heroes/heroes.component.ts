@@ -23,13 +23,14 @@ export class HeroesComponent implements OnInit, OnDestroy {
   heroes: THero[];
   addHero: string;
   heroState: string;
-  subscription: Subscription[];
+  subscription: Subscription[] = [];
 
   constructor(private heroService: HeroService) {}
 
   ngOnInit() {
     this.getHeroes();
   }
+
   getHeroes(): void {
     this.subscription.push(this.heroService.getHeroes()
       .subscribe(heroes => {

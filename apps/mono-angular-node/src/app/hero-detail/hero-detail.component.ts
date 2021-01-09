@@ -27,7 +27,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./hero-detail.component.scss']
 })
 export class HeroDetailComponent implements OnInit, OnDestroy {
-  subscription: Subscription[];
+  subscription: Subscription[] = [];
   @Input() hero: THero;
   public focusEventEmitter = new EventEmitter<boolean>();
   constructor(
